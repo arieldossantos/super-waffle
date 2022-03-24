@@ -4,6 +4,12 @@ Super Waffle is an Authentication Service written in Clojure and hosted on AWS :
 
 
 
-## Stack
+## TODO
 
-// todo
+- [ ] JSON response
+- [ ] Use records and protocols
+- [ ] Add schemas
+- [ ] Improve the architecture
+- [ ] Add arch tests
+- [ ] Add datomic database
+- [ ] Create an async endpoint
