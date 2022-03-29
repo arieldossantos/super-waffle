@@ -1,12 +1,12 @@
 # super-waffle
 
-Super Waffle is an Authentication Service written in Clojure and hosted on AWS :)
+Super Waffle is an api to register QATAR World Cup 2022 games, using Clojure and Datomic
 
 
 
 ## TODO
 
-- [ ] JSON response
+- [x] JSON response
 - [ ] Use records and protocols
 - [ ] Add schemas
 - [ ] Improve the architecture
