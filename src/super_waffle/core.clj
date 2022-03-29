@@ -1,22 +1,27 @@
 (ns super-waffle.core
-  (:require [ring.adapter.jetty :as ring-jetty]
-            [muuntaja.core :as m]
-            [reitit.ring :as ring])
+  (:require [io.pedestal.http :as http]
+            [io.pedestal.http.route :as route])
   (:gen-class))
 
-(def app
-  (ring/ring-handler
-    (ring/router
-      [["/"
-        {:get {:handler (fn [request]
-                          {:status 200
-                           :body   "teste"})}}]])))
 
-(def ring-options {:port  8090
-                   :join? false})
+(defn get-example [request]
+  {:status 200 :body "hello, world!"})
 
-(defonce server (atom (ring-jetty/run-jetty app ring-options)))
+(def routes
+  (route/expand-routes
+    #{["/" :get get-example :route-name :get-hello-world]}))
 
-(defn start-server []
-  (.stop @server)
-  (reset! server (ring-jetty/run-jetty app ring-options)))
+(def server-options {::http/routes routes
+                     ::http/type   :jetty
+                     ::http/port   3000})
+
+(defn create-server []
+  (http/create-server server-options))
+
+
+(defn start []
+  (http/start (create-server)))
+
+(defn restart []
+  (http/stop server-options)
+  (http/start (create-server)))
